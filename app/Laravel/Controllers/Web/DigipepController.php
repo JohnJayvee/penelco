@@ -8,6 +8,8 @@ use App\Laravel\Requests\PageRequest;
 
 use App\Laravel\Models\Transaction;
 use App\Laravel\Models\BillTransaction;
+use App\Laravel\Models\BillDetails;
+
 
 use App\Laravel\Events\SendCertificate;
 
