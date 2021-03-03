@@ -580,7 +580,6 @@ class Helper{
 
 		$details = BillDetails::where('account_number' , $array)->first();
         $exist = BillTransaction::where('bill_id' ,$details->id)->first();
-
         if ($exist->is_email_send == 0) {
             $insert[] = [
                 'email' => str_replace(' ','',trim($exist->email)),

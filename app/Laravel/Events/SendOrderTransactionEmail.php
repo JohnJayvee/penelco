@@ -32,8 +32,7 @@ class SendOrderTransactionEmail extends Event {
 			$this->data['amount'] = $value['amount'];
 			$this->data['payor'] = $value['payor'];
 			$this->data['created_at'] = $value['created_at'];
-			$this->data['order_details'] = $value['order_details']->toArray(); 
-
+			$this->data['order_details'] = $value['order_details']; 
 			$this->data['link'] = env("APP_URL");
 
 			Mail::send('emails.order-transaction', $this->data, function($message) use ($mailname,$user_email){
