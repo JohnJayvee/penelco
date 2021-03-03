@@ -7,7 +7,7 @@ use App\Laravel\Requests\PageRequest;
 
 
 use App\Laravel\Models\Transaction;
-use App\Laravel\Models\OrderTransaction;
+use App\Laravel\Models\BillTransaction;
 
 use App\Laravel\Events\SendCertificate;
 
@@ -33,8 +33,8 @@ class DigipepController extends Controller
 				case 'APP':
 					$transaction = Transaction::whereRaw("LOWER(transaction_code)  LIKE  '%{$code}%'")->first();
 					break;
-				case 'OT':
-					$transaction = OrderTransaction::whereRaw("LOWER(transaction_code)  LIKE  '%{$code}%'")->first();
+				case 'BT':
+					$transaction = BillTransaction::whereRaw("LOWER(transaction_code)  LIKE  '%{$code}%'")->first();
 					break;
 				default:
 					$transaction = Transaction::whereRaw("LOWER(processing_fee_code)  LIKE  '%{$code}%'")->first();
@@ -154,8 +154,8 @@ class DigipepController extends Controller
 				case 'APP':
 					$transaction = Transaction::whereRaw("LOWER(transaction_code)  LIKE  '%{$code}%'")->first();
 					break;
-				case 'OT':
-					$transaction = OrderTransaction::whereRaw("LOWER(transaction_code)  =  '{$code}'")->first();
+				case 'BT':
+					$transaction = BillTransaction::whereRaw("LOWER(transaction_code)  =  '{$code}'")->first();
 					break;
 				default:
 					$transaction = Transaction::whereRaw("LOWER(processing_fee_code)  LIKE  '%{$code}%'")->first();
@@ -263,8 +263,8 @@ class DigipepController extends Controller
 			case 'APP':
 				$transaction = Transaction::whereRaw("LOWER(transaction_code)  LIKE  '%{$code}%'")->first();
 				break;
-			case 'OT':
-				$transaction = OrderTransaction::whereRaw("LOWER(transaction_code)  =  '{$code}'")->first();
+			case 'BT':
+				$transaction = BillTransaction::whereRaw("LOWER(transaction_code)  =  '{$code}'")->first();
 				break;
 			default:
 				$transaction = Transaction::whereRaw("LOWER(processing_fee_code)  LIKE  '%{$code}%'")->first();

@@ -126,7 +126,7 @@ class MainController extends Controller{
 				$transaction = Transaction::whereRaw("LOWER(transaction_code)  LIKE  '%{$code}%'")->first();
 				$current_transaction_code = Str::lower($transaction->transaction_code);
 				break;
-			case 'OT':
+			case 'BT':
 				$transaction = OrderTransaction::whereRaw("LOWER(transaction_code)  =  '{$code}'")->first();
 				$current_transaction_code = Str::lower($transaction->transaction_code);
 				break;
