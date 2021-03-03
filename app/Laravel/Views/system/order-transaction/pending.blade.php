@@ -70,7 +70,7 @@
             <td>{{$bill->account_number}}</td>
             <td>{{$bill->account_name}} </td>
             <td>{{ Helper::date_format($bill->due_date)}}</td>
-            <td>{{Helper::money_format($bill->amount)}} </td>
+            <td>{{Helper::money_format($bill->amount ?: 0)}} </td>
             <td>
               <button type="button" class="btn btn-sm p-0" data-toggle="dropdown" style="background-color: transparent;"> <i class="mdi mdi-dots-horizontal" style="font-size: 30px"></i></button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuSplitButton2">
