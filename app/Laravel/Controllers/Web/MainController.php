@@ -11,7 +11,7 @@ use App\Laravel\Models\Transaction;
 use App\Laravel\Models\ApplicationRequirements;
 use App\Laravel\Models\AccountTitle;
 use App\Laravel\Models\Exports\RCDExport;
-use App\Laravel\Models\OrderTransaction;
+use App\Laravel\Models\BillTransaction;
 /*
  * Models
  */
@@ -127,7 +127,7 @@ class MainController extends Controller{
 				$current_transaction_code = Str::lower($transaction->transaction_code);
 				break;
 			case 'BT':
-				$transaction = OrderTransaction::whereRaw("LOWER(transaction_code)  =  '{$code}'")->first();
+				$transaction = BillTransaction::whereRaw("LOWER(transaction_code)  =  '{$code}'")->first();
 				$current_transaction_code = Str::lower($transaction->transaction_code);
 				break;
 			default:

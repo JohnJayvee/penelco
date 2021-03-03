@@ -102,15 +102,7 @@
                             </div>
                         </div>
                       
-                        <div class="row mb-5">
-                            <div class="col-md-6">
-                                <p class="text-blue float-left">Department :</p>
-                            </div>
-                            <div class="col-md-6">
-                                <p class="float-right text-uppercase" style="text-align: right;">{{Helper::order_department($transaction->department)}}</p>
-                            </div>
-                        </div>
-                        <img src="{{asset('web/img/dti-logo.png')}}" alt="logo" class="img-fluid float-right" width="30%">
+                        <img src="{{asset('web/img/penelco-logo.png')}}" alt="logo" class="img-fluid float-right" width="30%">
                     </div>
                 </div>
 

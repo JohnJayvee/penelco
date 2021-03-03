@@ -167,7 +167,7 @@
             </div>
           </div>
         
-          <img src="{{asset('web/img/dti-logo.png')}}" alt="logo" class="img-fluid float-right" width="30%">
+          <img src="{{asset('web/img/penelco-logo.png')}}" alt="logo" class="img-fluid float-right" width="30%">
         </div>
       </div>
     </div>

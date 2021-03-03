@@ -579,7 +579,7 @@ class Helper{
 	public static function email_send($array){
 
 		$details = BillDetails::where('account_number' , $array)->first();
-        $exist = BillTransaction::where('order_transaction_number' ,$array)->first();
+        $exist = BillTransaction::where('bill_id' ,$details->id)->first();
 
         if ($exist->is_email_send == 0) {
             $insert[] = [
@@ -594,7 +594,7 @@ class Helper{
             $notification_email_data = new SendOrderTransactionEmail($insert);
             Event::dispatch('send-email-order-transaction', $notification_email_data);
         }
-        OrderTransaction::where('order_transaction_number',$array)->update(['is_email_send' => 1]);
+        BillTransaction::where('bill_id' ,$details->id)->update(['is_email_send' => 1]);
 		  		
 	}
 }

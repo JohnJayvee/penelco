@@ -101,7 +101,7 @@
               <p class="float-right text-uppercase" style="text-align: right;">{{$bill_transaction->email}}</p>
             </div>
           </div>
-          <img src="{{asset('web/img/dti-logo.png')}}" alt="logo" class="img-fluid float-right" width="30%">
+          <img src="{{asset('web/img/penelco-logo.png')}}" alt="logo" class="img-fluid float-right" width="30%">
         </div>
       </div>
       <a href="{{route('system.order_transaction.pending')}}" class="btn btn-light float-right ">Return to Order Transaction list</a>
