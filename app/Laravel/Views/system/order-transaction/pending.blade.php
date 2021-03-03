@@ -70,7 +70,7 @@
             <td>{{$bill->account_number}}</td>
             <td>{{$bill->account_name}} </td>
             <td>{{ Helper::date_only($bill->due_date)}}</td>
-            <td>{{Helper::money_format($bill->amount ?: 0)}} </td>
+            <td>{{Helper::money_format($bill->amount ?: 0)}} <br> <span class="badge badge-{{Helper::status_badge($bill->payment_status)}} p-2">{{Str::title($bill->payment_status)}}</span></td>
             <td>
               <button type="button" class="btn btn-sm p-0" data-toggle="dropdown" style="background-color: transparent;"> <i class="mdi mdi-dots-horizontal" style="font-size: 30px"></i></button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuSplitButton2">
