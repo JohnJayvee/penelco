@@ -114,7 +114,7 @@ class DigipepController extends Controller
 				}
 			}
 			
-			if(isset($response->payment) AND Str::upper($response->payment->status) == "PAID" AND $transaction->transaction_status != "COMPLETED" AND $prefix == "OT"){
+			if(isset($response->payment) AND Str::upper($response->payment->status) == "PAID" AND $transaction->transaction_status != "COMPLETED" AND $prefix == "BT"){
 				DB::beginTransaction();
 				try{
 					$transaction->payment_reference = $response->transactionCode;
@@ -222,7 +222,7 @@ class DigipepController extends Controller
 					Log::alert("Digipep Error : "."Server Error. Please try again.".$e->getLine());
 				}
 			}
-			if(isset($response->payment) AND Str::upper($response->payment->status) == "FAILED" AND $transaction->transaction_status != "COMPLETED" AND $prefix == "OT"){
+			if(isset($response->payment) AND Str::upper($response->payment->status) == "FAILED" AND $transaction->transaction_status != "COMPLETED" AND $prefix == "BT"){
 				DB::beginTransaction();
 				try{
 					$transaction->payment_reference = $response->transactionCode;
@@ -291,7 +291,7 @@ class DigipepController extends Controller
 			$transaction->status  = "CANCELLED";
 			$transaction->save();
 		}
-		if($transaction->status != "COMPLETED" AND $prefix == "OT") {
+		if($transaction->status != "COMPLETED" AND $prefix == "BT") {
 			$transaction->payment_date = Carbon::now();
 			$transaction->transaction_status  = "CANCELLED";
 			$transaction->payment_status  = "CANCELLED";
