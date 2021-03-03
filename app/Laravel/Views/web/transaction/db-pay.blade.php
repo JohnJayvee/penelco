@@ -61,7 +61,7 @@
                         </div>
                     </div>
                 </div>
-                @if($transaction->bill->type == "FULL")
+                @if($transaction->bill_type == "FULL")
                   <a data-url="{{ route('web.request_partial', [$code]) }}"  class="btn btn-partial btn-badge-primary fs-14 float-right mt-2">  Request Partial Payment </a>
                 @endif
             </div>
