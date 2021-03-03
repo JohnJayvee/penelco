@@ -182,6 +182,7 @@ class OrderTransactionController extends Controller
 		 		$new_transaction->contact_number = $bill->contact_number;
 		 		$new_transaction->email = $bill->email;
 		 		$new_transaction->bill_type = "PARTIAL";
+		 		$new_transaction->total_amount = $bill->partial_amount;
 		 		$new_transaction->save();
 		 		$new_transaction->transaction_code = 'BT-' . Helper::date_format(Carbon::now(), 'ym') . str_pad($new_transaction->id, 5, "0", STR_PAD_LEFT) . Str::upper(Str::random(3));
 		 		$new_transaction->save();
