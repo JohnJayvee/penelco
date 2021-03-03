@@ -134,9 +134,13 @@ class DigipepController extends Controller
 					// $transaction->total_amount = $transaction->processing_fee + $convenience_fee;
 					$transaction->save();
 
-					$bill_details = BillDetails::find($transaction->bill_id);
-					$bill_details->payment_status = "PAID"
-					$bill_details->save();
+					if($transaction->bill_type == "FULL"){
+						$bill_details = BillDetails::find($transaction->bill_id);
+						$bill_details->payment_status = "PAID";
+						$bill_details->save();
+					}
+						
+
 					DB::commit();
 
 				}catch(\Exception $e){
