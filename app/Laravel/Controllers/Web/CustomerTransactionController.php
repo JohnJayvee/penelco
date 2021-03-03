@@ -187,7 +187,6 @@ class CustomerTransactionController extends Controller
 			case 'BT':
 				$transaction = BillTransaction::whereRaw("LOWER(transaction_code)  =  '{$code}'")->whereRaw("LOWER(account_number)  =  '{$account_number}'")->first();
 				break;
-			
 			default:
 				return redirect()->route('web.pay',[$code]);
 				break;
@@ -212,7 +211,7 @@ class CustomerTransactionController extends Controller
 			session()->flash('notification-msg', "Transaction can not be modified anymore. No more action needed.");
 			return redirect()->back();
 		}
-		if($prefix == "OT" AND $transaction->transaction_status != "PENDING") {
+		if($prefix == "BT" AND $transaction->transaction_status != "PENDING") {
 			session()->flash('notification-status',"warning");
 			session()->flash('notification-msg', "Transaction can not be modified anymore. No more action needed.");
 			return redirect()->back();
@@ -256,11 +255,11 @@ class CustomerTransactionController extends Controller
 					$payor = $transaction->company_name;
 				}
 				break;
-			case 'OT':
+			case 'BT':
 				$transaction = BillTransaction::whereRaw("LOWER(transaction_code)  =  '{$code}'")->first();
 				if ($transaction) {
 					$amount =  Helper::db_amount($transaction ? $transaction->total_amount : 0);
-					$title = "Order Transaction";
+					$title = "Bill Transaction";
 					$payor = $transaction->payor;
 				}
 				break;
@@ -287,7 +286,7 @@ class CustomerTransactionController extends Controller
 			return redirect()->back();
 		}
 
-		if(($prefix == "PF" || $prefix == "OT") AND $transaction->transaction_status != "PENDING") {
+		if(($prefix == "PF" || $prefix == "BT") AND $transaction->transaction_status != "PENDING") {
 			session()->flash('notification-status',"warning");
 			session()->flash('notification-msg', "Transaction can not be modified anymore. No more action needed.");
 			return redirect()->back();

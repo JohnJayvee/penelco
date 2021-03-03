@@ -1,7 +1,7 @@
 <?php 
 
 namespace App\Laravel\Services;
-use App\Laravel\Models\{Transaction, OrderDetails,OrderTransaction};
+use App\Laravel\Models\{Transaction, BillDetails,BillTransaction};
 use Route,Str,Carbon,Input,DB,DateTime,DateInterval,DatePeriod;
 use App\Laravel\Events\SendOrderTransactionEmail;
 
@@ -578,8 +578,8 @@ class Helper{
 
 	public static function email_send($array){
 
-		$details = OrderDetails::where('transaction_number' , $array)->get();
-        $exist = OrderTransaction::where('order_transaction_number' ,$array)->first();
+		$details = BillDetails::where('account_number' , $array)->first();
+        $exist = BillTransaction::where('order_transaction_number' ,$array)->first();
 
         if ($exist->is_email_send == 0) {
             $insert[] = [
@@ -589,7 +589,6 @@ class Helper{
                 'amount' => $exist->total_amount,
                 'order_details' =>  $details,
                 'payor' =>  $exist->payor,
-                'department' =>  Helper::order_department($exist->department),
                 'created_at' => Helper::date_only($exist->created_at)
             ];  
             $notification_email_data = new SendOrderTransactionEmail($insert);

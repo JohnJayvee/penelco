@@ -73,23 +73,22 @@
 			</tr>
 			
 			<tr class="text-blue">
-				<th style="text-align: left;padding: 10px;">Order Details</th>
+				<th style="text-align: left;padding: 10px;">Bill Details</th>
 			</tr>
-			@forelse($order_details as $detail)
+			
 			<tr class="text-blue" style="border-top: solid 1px black;">
-				<th style="text-align: left;padding: 10px;">Reference/Transaction/Serial Number:</th>
-				<th style="text-align: right;">{!! $detail['transaction_number'] !!}</th>
+				<th style="text-align: left;padding: 10px;">Account Number:</th>
+				<th style="text-align: right;">{{ $order_details->account_number }}</th>
 			</tr>
 			<tr class="text-blue" >
-				<th style="text-align: left;padding: 10px;">Particulars:</th>
-				<th style="text-align: right;">{{ $detail['particulars']}}</th>
+				<th style="text-align: left;padding: 10px;">Bill Month:</th>
+				<th style="text-align: right;">{{ Helper::date_only($order_details->bill_month) }}</th>
 			</tr>
 			<tr class="text-blue" style="border-bottom: solid 1px black;">
-				<th style="text-align: left;padding: 10px;">Amount:</th>
-				<th style="text-align: right;">PHP {{ $detail['amount']}}</th>
+				<th style="text-align: left;padding: 10px;">Due Date:</th>
+				<th style="text-align: right;">{{ Helper::date_only($order_details->due_date) }}</th>
 			</tr>
-			@empty
-			@endforelse
+			
 			<tr class="text-blue">
 				<th style="text-align: left;padding: 10px;">Total Amount:</th>
 				<th style="text-align: right;">PHP {{$amount}}</th>
@@ -103,11 +102,6 @@
 			<tr class="text-blue">
 				<th style="text-align: left;padding: 10px;">Payor:</th>
 				<th style="text-align: right;">{{$payor}}</th>
-			</tr>
-			
-			<tr class="text-blue">
-				<th style="text-align: left;padding: 10px;">Department:</th>
-				<th style="text-align: right;">{{$department}}</th>
 			</tr>
 			
 			

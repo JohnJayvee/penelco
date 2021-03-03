@@ -26,13 +26,12 @@ class SendOrderTransactionEmail extends Event {
 
 	public function job(){	
 		foreach($this->data as $index =>$value){
-			$mailname = "Order Transaction Details";
+			$mailname = "Bill Transaction Details";
 			$user_email = $value['email'];
 			$this->data['ref_num'] = $value['ref_num'];
 			$this->data['amount'] = $value['amount'];
 			$this->data['payor'] = $value['payor'];
 			$this->data['created_at'] = $value['created_at'];
-			$this->data['department'] = $value['department'];
 			$this->data['order_details'] = $value['order_details']->toArray(); 
 
 			$this->data['link'] = env("APP_URL");

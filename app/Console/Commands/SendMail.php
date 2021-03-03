@@ -46,8 +46,7 @@ class SendMail extends Command
         $array = BillTransaction::where('is_email_send' , 0)->take(100)->get();
         $data = [];
         foreach ($array as $key => $value) {
-            array_push($data, $value->order_transaction_number);
-            
+            array_push($data, $value->account_number);
         }
 
         foreach ($data as $key => $value) {
