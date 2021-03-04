@@ -178,7 +178,7 @@
       var self = $(this)
       Swal.fire({
         title: "All the submitted requirements will be marked as declined. Are you sure you want to declined this application?",
-        
+        text: "You will not be able to undo this action.",
         icon: 'warning',
         input: 'text',
         inputPlaceholder: "Put remarks",
@@ -200,7 +200,7 @@
       var self = $(this)
       Swal.fire({
         title: "All the submitted requirements will be marked as approved. Are you sure you want to approve this application?",
-        
+        text: "You will not be able to undo this action.",
         icon: 'info',
         input: 'text',
         inputPlaceholder: "Put Amount",
@@ -223,7 +223,7 @@
       var self = $(this)
       Swal.fire({
         title: 'Are you sure you want to modify this requirements?',
-        text: "You will not be able to undo this action, proceed?",
+        text: "You will not be able to undo this action.",
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: `Proceed`,

@@ -175,6 +175,7 @@ class OrderTransactionController extends Controller
 
 		 	if ($type == "approved") {
 		 		$bill->partial_status = "APPROVED";
+		 		$bill->process_date = Carbon::now();
 		 		$bill->save();
 
 		 		$new_transaction = new BillTransaction();
@@ -194,6 +195,7 @@ class OrderTransactionController extends Controller
 		 	}else if($type == "declined"){
 		 		$bill->partial_status = "DECLINED";
 		 		$bill->remarks = $request->get('remarks');
+		 		$bill->process_date = Carbon::now();
 		 		$bill->save();
 
 		 		session()->flash('notification-status', "success");
