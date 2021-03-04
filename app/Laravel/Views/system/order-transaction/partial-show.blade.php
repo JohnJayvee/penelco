@@ -142,7 +142,7 @@
       var self = $(this)
       Swal.fire({
         title: 'Are you sure you want to Approved this Partial Payment Request?',
-        text: "You will not be able to undo this action, proceed?",
+        text: "You will not be able to undo this action.",
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: `Proceed`,
@@ -158,7 +158,7 @@
       var self = $(this)
       Swal.fire({
         title: "Are you sure you want to Declined this Partial Payment Request?",
-        text: "You will not be able to undo this action, proceed?",
+        text: "You will not be able to undo this action.",
         icon: 'warning',
         input: 'text',
         inputPlaceholder: "Put remarks",
