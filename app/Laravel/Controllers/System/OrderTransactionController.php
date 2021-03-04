@@ -142,7 +142,7 @@ class OrderTransactionController extends Controller
 		$this->data['bills'] = $request->get('bill_details_data');
 		$this->data['bill_transaction'] = BillTransaction::where("bill_id" , $this->data['bills']->id)->where('bill_type' ,"FULL")->first();
 
-		$this->data['partial_payments'] = BillDetails::where("id" , $this->data['bills']->id)->get();
+		$this->data['partial_payments'] = BillDetails::where("id" , $this->data['bills']->id)->where('requested_partial' , 1)->get();
 
 		if (!$this->data['bill_transaction']) {
 			session()->flash('notification-status', "failed");

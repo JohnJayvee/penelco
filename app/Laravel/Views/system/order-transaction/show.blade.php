@@ -116,12 +116,12 @@
               <tbody>
                 @forelse($partial_payments as $partial_payment)
                 <tr class="text-center">
-                  <td>{{ Helper::date_only($partial_payment->bill->bill_month)}}</td>
-                  <td>{{ Helper::date_only($partial_payment->bill->due_date)}}</td>
-                  <td>{{ Helper::money_format($partial_payment->bill->amount)}}</td>
+                  <td>{{ Helper::date_only($partial_payment->bill_month)}}</td>
+                  <td>{{ Helper::date_only($partial_payment->due_date)}}</td>
+                  <td>{{ Helper::money_format($partial_payment->amount)}}</td>
                   <td>{{ Helper::date_only(Carbon::now())}}</td>
                   <td>{{ Helper::money_format(100) }} </td>
-                  <td>{{ Helper::money_format(100 + $partial_payment->bill->amount) }}</td>
+                  <td>{{ Helper::money_format(100 + $partial_payment->amount) }}</td>
                   
                 </tr>
                 @empty
