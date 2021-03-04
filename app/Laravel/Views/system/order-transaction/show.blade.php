@@ -79,12 +79,12 @@
               <tbody>
                 @forelse($partial_payments as $partial_payment)
                 <tr class="text-center">
-                  <td>{{ Helper::date_only($partial_payment->bill->request_date)}}</td>
-                  <td>{{ Helper::date_only($partial_payment->bill->bill_month)}}</td>
-                  <td>{{ Helper::money_format($partial_payment->bill->amount)}}</td>
-                  <td>{{ Helper::money_format($partial_payment->bill->partial_amount)}} <br> <span class="badge badge-{{Helper::status_badge($partial_payment->payment_status)}} p-2">{{Str::title($bill_transaction->payment_status)}}</span></td>
-                  <td><div><small><span class="badge badge-pill badge-{{Helper::status_badge($partial_payment->bill->partial_status)}} p-2">{{Str::upper($partial_payment->bill->partial_status)}}</span></small></div></td>
-                  <td>{{ $partial_payment->bill->remarks ?: "----" }}</td>
+                  <td>{{ Helper::date_only($partial_payment->request_date)}}</td>
+                  <td>{{ Helper::date_only($partial_payment->bill_month)}}</td>
+                  <td>{{ Helper::money_format($partial_payment->amount)}}</td>
+                  <td>{{ Helper::money_format($partial_payment->partial_amount)}} <br> <span class="badge badge-{{Helper::status_badge($partial_payment->payment_status)}} p-2">{{Str::title($bill_transaction->payment_status)}}</span></td>
+                  <td><div><small><span class="badge badge-pill badge-{{Helper::status_badge($partial_payment->partial_status)}} p-2">{{Str::upper($partial_payment->partial_status)}}</span></small></div></td>
+                  <td>{{ $partial_payment->remarks ?: "----" }}</td>
 
                 </tr>
                 @empty

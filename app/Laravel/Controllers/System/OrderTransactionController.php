@@ -142,7 +142,7 @@ class OrderTransactionController extends Controller
 		$this->data['bills'] = $request->get('bill_details_data');
 		$this->data['bill_transaction'] = BillTransaction::where("bill_id" , $this->data['bills']->id)->where('bill_type' ,"FULL")->first();
 
-		$this->data['partial_payments'] = BillTransaction::where("bill_id" , $this->data['bills']->id)->where('bill_type' ,"PARTIAL")->get();
+		$this->data['partial_payments'] = BillDetails::where("bill_id" , $this->data['bills']->id)->get();
 
 		if (!$this->data['bill_transaction']) {
 			session()->flash('notification-status', "failed");
@@ -155,7 +155,9 @@ class OrderTransactionController extends Controller
 	public function partial_show(PageRequest $request,$id = NULL){
 
 		$this->data['bills'] = $request->get('bill_details_data');
+
 		$this->data['bill_transaction'] = BillTransaction::where("bill_id" , $this->data['bills']->id)->first();
+
 		if (!$this->data['bill_transaction']) {
 			session()->flash('notification-status', "failed");
 			session()->flash('notification-msg', "No Transaction Found");
@@ -186,15 +188,20 @@ class OrderTransactionController extends Controller
 		 		$new_transaction->save();
 		 		$new_transaction->transaction_code = 'BT-' . Helper::date_format(Carbon::now(), 'ym') . str_pad($new_transaction->id, 5, "0", STR_PAD_LEFT) . Str::upper(Str::random(3));
 		 		$new_transaction->save();
+
+		 		session()->flash('notification-status', "success");
+				session()->flash('notification-msg', "Partial Payment Request Successfully approved.");
 		 	}else if($type == "declined"){
 		 		$bill->partial_status = "DECLINED";
 		 		$bill->remarks = $request->get('remarks');
 		 		$bill->save();
+
+		 		session()->flash('notification-status', "success");
+				session()->flash('notification-msg', "Partial Payment Request Successfully declined.");
 		 	}
 
 	 		DB::commit();
-			session()->flash('notification-status', "success");
-			session()->flash('notification-msg', "Partial Payment Request Successfully approved.");
+			
 			return redirect()->route('system.order_transaction.partial');
 		}catch(\Exception $e){
 			DB::rollback();
