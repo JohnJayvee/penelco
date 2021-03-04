@@ -160,7 +160,7 @@ $(function(){
       var self = $(this)
       Swal.fire({
         title: "Please put Partial Amount. ",
-        text:"Are you sure you want to submit this request? You can't undo this action.?",
+        text:"Are you sure you want to submit this request? You can't undo this action.",
         icon: 'info',
         input: 'text',
         inputPlaceholder: "Put Amount",

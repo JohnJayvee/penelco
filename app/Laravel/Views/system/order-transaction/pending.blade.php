@@ -57,6 +57,7 @@
           <tr class="text-center">
             <th class="text-title p-3">Bill Month</th>
             <th class="text-title p-3">Account Number</th>
+            <th class="text-title p-3">Transaction Code</th>
             <th class="text-title p-3">Account Name</th>
             <th class="text-title p-3">Due Date</th>
             <th class="text-title p-3">Amount/Status</th>
@@ -68,6 +69,7 @@
           <tr class="text-center">
             <td>{{ Helper::date_only($bill->bill_month)}}</td>
             <td>{{$bill->account_number}}</td>
+            <td>{{Helper::get_transaction_number($bill->id)}}</td>
             <td>{{$bill->account_name}} </td>
             <td>{{ Helper::date_only($bill->due_date)}}</td>
             <td>{{Helper::money_format($bill->amount ?: 0)}} <br> <span class="badge badge-{{Helper::status_badge($bill->payment_status)}} p-2">{{Str::title($bill->payment_status)}}</span></td>

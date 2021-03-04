@@ -4,13 +4,15 @@
     
     
     @if(in_array($auth->type,['super_user','admin','processor','office_head','pcims_admin','bps_library_admin','bps_testing_admin','order_transaction_admin','cashier']))
-      @if(in_array($auth->type,['super_user','admin','office_head']))
+      @if(in_array($auth->type,['super_user','admin','office_head','order_transaction_admin']))
         <li class="p-3 nav-item {{ in_array(Route::currentRouteName(), array('system.dashboard')) ? 'active' : ''}}">
           <a class="nav-link" href="{{route('system.dashboard')}}">
             <i class="fa fa-home menu-icon"></i>
             <span class="menu-title">Dashboard</span>
           </a>
         </li>
+      @endif
+      @if(in_array($auth->type,['super_user','admin','office_head']))
         <li class="p-3 nav-item {{ in_array(Route::currentRouteName(), array('system.processor.list','system.processor.show' )) ? 'active' : ''}}">
           <a class="nav-link" href="{{route('system.processor.list')}}">
             <i class="fa fa-user-circle menu-icon"></i>

@@ -87,7 +87,7 @@
 			<tr>
 				<th colspan="2">
 					<p><a href="{{$link}}">Please click this link to download your reference number</a></p>
-					<p>Thank you for choosing DTI Online Pay!</p>
+					<p>Thank you for choosing Penelco!</p>
 				</th>
 			</tr>
 		

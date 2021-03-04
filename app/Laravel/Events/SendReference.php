@@ -32,7 +32,7 @@ class SendReference extends Event {
 
 			$nexmo = Nexmo::message()->send([
 				'to' => '+63'.(int)$phone,
-				'from' => 'DTI Online Pay' ,
+				'from' => 'Penelco' ,
 				'text' => "The transaction code for your application for DTI Online Pay is #" . $ref_num . "\r\n\n Please enter this reference code on the EPAYMENT section on:\r\n ".env("APP_URL")." to proceed.",
 			]);
 			
