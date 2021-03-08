@@ -61,7 +61,7 @@ class Helper{
 	public static function get_transaction_number($value = NULL){
 		$transaction = BillTransaction::where('bill_id' , $value)->where('bill_type' , "FUll")->first();
 
-		return $transaction->transaction_code;
+		return $transaction ? $transaction->transaction_code : "---";
 	}
 
 	public static function digipep_transaction(array $param){

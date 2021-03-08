@@ -12,7 +12,7 @@ use App\Laravel\Requests\PageRequest;
 /*
  * Models
  */
-use App\Laravel\Models\{Transaction,Department,Application};
+use App\Laravel\Models\{Transaction,Department,Application,BillTransaction,BillDetails};
 
 /* App Classes
  */
@@ -27,7 +27,7 @@ class MainController extends Controller{
 		array_merge($this->data, parent::get_data());
 	}
 
-	public function dashboard(PageRequest $request){
+	/*public function dashboard(PageRequest $request){
 		$auth = $request->user();
 		$this->data['page_title'] .= "Dashboard";
 		if(in_array($auth->type,['super_user','admin','office_head','processor','pcims_admin','bps_library_admin','bps_testing_admin','order_transaction_admin','cashier'])){
@@ -153,7 +153,54 @@ class MainController extends Controller{
 		
 
 		return view('system.dashboard',$this->data);
+	}*/
+
+	public function dashboard(PageRequest $request){
+		$auth = $request->user();
+		$this->data['page_title'] .= "Dashboard";
+
+			$this->data['applications'] = BillTransaction::orderBy('created_at',"DESC")->get(); 
+			$this->data['paid'] = BillTransaction::where('payment_status',"PAID")->count();
+			$this->data['unpaid'] = BillTransaction::where('payment_status',"UNPAID")->count(); 
+			$this->data['transactions'] = BillTransaction::count(); 
+			$this->data['partial_request'] = BillDetails::where('requested_partial' , 1)->where('partial_status' , "PENDING")->count(); 
+
+
+			$this->data['application_today'] = BillTransaction::whereDate('created_at', Carbon::now())->count(); 
+			$this->data['labels'] = Department::pluck('name')->toArray();
+			$this->data['transaction_per_department'] = Department::withCount('assignTransaction')->pluck('assign_transaction_count')->toArray();
+
+			$transaction_query = Transaction::groupBy('department_id')->select("department_id", DB::raw('SUM(processing_fee + amount) AS amount_sum'));
+
+		 	$this->data['amount_per_application'] = Department::leftjoin(DB::raw("({$transaction_query->toSql()}) AS tq"), 'tq.department_id', '=', 'department.id')->mergeBindings($transaction_query->getQuery())
+							->select('department.*', 'amount_sum')->get();
+
+			$this->data['total_amount'] = Transaction::select(DB::raw('sum(processing_fee + amount) as total'))->first();
+
+			$chart_data = [];
+			$per_month_date = [];
+	    	$per_month_application =[];
+
+	    	$approved_year_start = Carbon::now()->startOfYear()->subMonth();
+	    	$pending_year_start = Carbon::now()->startOfYear()->subMonth();
+	    	
+			foreach(range(1,12) as $index => $value){
+				$approved = BillTransaction::whereRaw("MONTH(created_at) = '".$approved_year_start->addMonth()->format('m')."' AND YEAR(created_at) = '".Carbon::now()->format('Y')."'")->where('transaction_status','COMPLETED');
+				$total_approved = $approved->count();
+
+				$pending = BillTransaction::whereRaw("MONTH(created_at) = '".$pending_year_start->addMonth()->format('m')."' AND YEAR(created_at) = '".Carbon::now()->format('Y')."'")->where('transaction_status','PENDING');
+				$total_pending = $pending->count();
+
+				array_push($per_month_application, ["month"=>$approved_year_start->format("M"),"approved"=>$total_approved,"pending"=>$total_pending]);
+			}
+
+			$this->data['per_month_application'] = json_encode($per_month_application);
+			$this->data['label_data'] = json_encode($this->data['labels']);
+			$this->data['chart_data'] = json_encode($this->data['transaction_per_department']);
+
+		
+		
+
+		return view('system.dashboard',$this->data);
 	}
-
-
 }

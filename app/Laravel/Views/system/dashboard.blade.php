@@ -13,14 +13,14 @@
 	    <div class="col-md-4">
 	      <div class="card-counter info">
 	        <i class="fa fa-hourglass-half"></i>
-	        <span class="count-numbers">{{$pending ?: "0"}}</span>
+	        <span class="count-numbers">{{$paid ?: "0"}}</span>
 	        <span class="count-name">Total Paid Transactions</span>
 	      </div>
 	    </div>
 	    <div class="col-md-4">
 	      <div class="card-counter success">
 	        <i class="fa  fa-check-circle"></i>
-	        <span class="count-numbers">{{$approved ?: "0"}}</span>
+	        <span class="count-numbers">{{$unpaid ?: "0"}}</span>
 	        <span class="count-name">Total Unpaid Transactions</span>
 	      </div>
 	    </div>
@@ -36,21 +36,21 @@
 		<div class="col-md-6">
 	      <div class="card-counter info">
 	        <i class="fa fa-file"></i>
-	        <span class="count-numbers">{{$declined ?: "0"}}</span>
+	        <span class="count-numbers">{{$transactions ?: "0"}}</span>
 	        <span class="count-name">Total For Payment Transactions</span>
 	      </div>
 	    </div>
 	    <div class="col-md-6">
 	      <div class="card-counter success">
 	        <i class="fa fa-file"></i>
-	        <span class="count-numbers">{{$declined ?: "0"}}</span>
+	        <span class="count-numbers">{{$partial_request ?: "0"}}</span>
 	        <span class="count-name">Total Partial Payment Requests</span>
 	      </div>
 	    </div>
 	</div>
 	
 	<div class="row pt-2">
-		<div class="col-md-6 p-2">
+		<div class="col-md-12 p-2">
 			<div class="card h-100" style="border: none;border-radius: 10px;">
 				<div class="card-body">
 					<h5 class="text-title d-inline-block p-3">Monthly Summary</h5>
@@ -58,7 +58,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-6 p-2">
+		{{-- <div class="col-md-6 p-2">
 			<div class="card h-100" style="border: none;border-radius: 10px;">
 				<div class="card-body">
 					<h5 class="text-title d-inline-block p-3">Total Transactions</h5>
@@ -72,9 +72,9 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> --}}
 	</div>
-	@if(Auth::user()->type != "processor")
+	{{-- @if(Auth::user()->type != "processor")
 	<div class="row">
 		<div class="col-md-6">
 			<div class="card h-100" style="border: none;border-radius: 10px;">
@@ -101,7 +101,7 @@
 			</div>
 		</div>
 	</div>
-	@endif
+	@endif --}}
 </div>
 @stop 
 
@@ -152,8 +152,8 @@
 		element: 'bar-example',
 		data: {!! $per_month_application !!},
 		xkey: 'month',
-  		ykeys: ['approved', 'declined'],
-		labels: ['Approved', 'declined'],
+  		ykeys: ['approved', 'pending'],
+		labels: ['Approved', 'Pending'],
 		barColors: ["#0045A2", "#D63231"],
 		stacked: true,
 		hideHover:'auto',
