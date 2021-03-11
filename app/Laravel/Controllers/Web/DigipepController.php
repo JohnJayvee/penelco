@@ -275,6 +275,7 @@ class DigipepController extends Controller
 				break;
 			case 'BT':
 				$transaction = BillTransaction::whereRaw("LOWER(transaction_code)  =  '{$code}'")->first();
+				$bill_details = BillDetails::find($transaction->bill_id);
 				break;
 			default:
 				$transaction = Transaction::whereRaw("LOWER(processing_fee_code)  LIKE  '%{$code}%'")->first();
@@ -306,6 +307,8 @@ class DigipepController extends Controller
 			$transaction->transaction_status  = "CANCELLED";
 			$transaction->payment_status  = "CANCELLED";
 			$transaction->save();
+			$bill_details->payment_status = "CANCELLED";
+			$bill_details->save();
 		}
 
 		session()->forget('transaction');
