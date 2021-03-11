@@ -21,7 +21,7 @@
         </li>
       @endif
       @if(in_array($auth->type,['super_user','admin','office_head','processor']))
-        <li class="p-3 nav-item {{ in_array(Route::currentRouteName(), array('system.transaction.index','system.transaction.show','system.transaction.declined','system.transaction.pending','system.transaction.approved','system.transaction.resent')) ? 'active' : ''}}">
+        {{-- <li class="p-3 nav-item {{ in_array(Route::currentRouteName(), array('system.transaction.index','system.transaction.show','system.transaction.declined','system.transaction.pending','system.transaction.approved','system.transaction.resent')) ? 'active' : ''}}">
           <a class="nav-link" data-toggle="collapse" href="#my_report" aria-expanded="false" aria-controls="my_report">
             <i class="fa fa-file menu-icon"></i>
             <span class="menu-title">Transactions</span>
@@ -62,7 +62,7 @@
             </ul>
             @endif
           </div>
-        </li>
+        </li> --}}
       @endif
       <li class="p-3 nav-item {{ in_array(Route::currentRouteName(), array('system.order_transaction.show','system.order_transaction.pending')) ? 'active' : ''}}">
         <a class="nav-link" data-toggle="collapse" href="#order_transaction" aria-expanded="false" aria-controls="order_transaction">
@@ -85,7 +85,7 @@
       </li>
     @if(in_array($auth->type,['super_user','admin','office_head']))
       @if(in_array($auth->type,['super_user','admin']))
-        <li class="p-3 nav-item {{ in_array(Route::currentRouteName(), array('system.account_title.partial','system.account_title.create','system.account_title.edit')) ? 'active' : ''}}">
+        {{-- <li class="p-3 nav-item {{ in_array(Route::currentRouteName(), array('system.account_title.partial','system.account_title.create','system.account_title.edit')) ? 'active' : ''}}">
           <a class="nav-link" href="{{route('system.account_title.index')}}">
             <i class="fa fa-bookmark menu-icon"></i>
             <span class="menu-title">Account Title</span>
@@ -109,7 +109,7 @@
             <i class="fa fa-check-circle menu-icon"></i>
             <span class="menu-title">Application Requirements</span>
           </a>
-        </li>
+        </li> --}}
       @endif
         <!-- <li class="p-3 nav-item {{ in_array(Route::currentRouteName(), array('system.regional_office.index','system.regional_office.create','system.regional_office.edit')) ? 'active' : ''}}">
           <a class="nav-link" href="{{route('system.regional_office.index')}}">
