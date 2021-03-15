@@ -28,8 +28,8 @@ class CreateOrderDetailsTable extends Migration
             $table->string('partial_amount')->nullable();
             $table->string('partial_status')->default("PENDING")->nullable();
             $table->string('remarks')->nullable();
-            $table->date('request_date')->nullable();
-            $table->date('process_date')->nullable();
+            $table->datetime('request_date')->nullable();
+            $table->datetime('process_date')->nullable();
 
 
             $table->timestamps();

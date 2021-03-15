@@ -61,6 +61,9 @@ class EventServiceProvider extends ServiceProvider
          'send-email-order-transaction' => [
             'App\Laravel\Listeners\SendOrderTransactionListener'
         ],
+         'send-partial-request' => [
+            'App\Laravel\Listeners\SendPartialRequestListener'
+        ],
 
     ];
 

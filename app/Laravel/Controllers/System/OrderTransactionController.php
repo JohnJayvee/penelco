@@ -15,6 +15,7 @@ use App\Laravel\Requests\System\ExcelUploadRequest;
 use App\Laravel\Models\{BillTransaction,BillDetails};
 use App\Laravel\Models\Imports\OrderImport;
 
+use App\Laravel\Events\SendPartialRequestEmail;
 
 /* App Classes
  */
@@ -169,7 +170,6 @@ class OrderTransactionController extends Controller
 	public function process(PageRequest $request, $id = NULL){
 		DB::beginTransaction();
 		try{
-
 		 	$bill = $request->get('bill_details_data');
 		 	$type = $request->get('type');
 
@@ -190,8 +190,16 @@ class OrderTransactionController extends Controller
 		 		$new_transaction->transaction_code = 'BT-' . Helper::date_format(Carbon::now(), 'ym') . str_pad($new_transaction->id, 5, "0", STR_PAD_LEFT) . Str::upper(Str::random(3));
 		 		$new_transaction->save();
 
+		 		
+				/*$notification_data = new SendApprovedReference($insert);
+			    Event::dispatch('send-sms-approved', $notification_data);*/
+
+			    $notification_data_email = new SendPartialRequestEmail($insert);
+			    Event::dispatch('send-partial-request', $notification_data_email);
+
 		 		session()->flash('notification-status', "success");
 				session()->flash('notification-msg', "Partial Payment Request Successfully approved.");
+
 		 	}else if($type == "declined"){
 		 		$bill->partial_status = "DECLINED";
 		 		$bill->remarks = $request->get('remarks');
@@ -202,8 +210,25 @@ class OrderTransactionController extends Controller
 				session()->flash('notification-msg', "Partial Payment Request Successfully declined.");
 		 	}
 
+		 	$insert[] = [
+            	'email' => $bill->email,
+            	'account_number' => $bill->account_number,
+                'ref_num' => $type == "approved" ? $new_transaction->transaction_code : " " ,
+                'partial_amount' => $bill->partial_amount,
+                'total_amount' => $bill->amount,
+                'bill_month' => $bill->bill_month,
+                'due_date' =>  $bill->due_date,
+                'full_name' => $bill->account_name,
+                'contact_number' => $bill->contact_number,
+                'remarks' => $bill->remarks,
+                'type' => $type,
+        	];	
+
+        	$notification_data_email = new SendPartialRequestEmail($insert);
+			Event::dispatch('send-partial-request', $notification_data_email);
+
 	 		DB::commit();
-			
+
 			return redirect()->route('system.order_transaction.partial');
 		}catch(\Exception $e){
 			DB::rollback();

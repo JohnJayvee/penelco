@@ -54,7 +54,8 @@
             <th class="text-title p-3">Account Name</th>
             <th class="text-title p-3">Due Date</th>
             <th class="text-title p-3">Amount</th>
-            <th class="text-title p-3">Partial Amount Request/Status</th>
+            <th class="text-title p-3">Partial Amount Request/Status/Date</th>
+            <th class="text-title p-3">Request Date</th>
             <th class="text-title p-3">Remarks</th>
             <th class="text-title p-3">Action</th>
           </tr>
@@ -71,7 +72,9 @@
               <div>
                 <small><span class="badge badge-pill badge-{{Helper::status_badge($bill->partial_status)}} p-2">{{Str::upper($bill->partial_status)}}</span></small>
               </div> 
+              {{ $bill->process_date ? Helper::date_only($bill->process_date) : "---" }}
             </td>
+            <td>{{ $bill->request_date ? Helper::date_only($bill->request_date) : "---" }}</td>
             <td>{{ $bill->remarks ?: "---"}}</td>
             <td>
               <button type="button" class="btn btn-sm p-0" data-toggle="dropdown" style="background-color: transparent;"> <i class="mdi mdi-dots-horizontal" style="font-size: 30px"></i></button>

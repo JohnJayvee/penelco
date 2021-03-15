@@ -36,6 +36,9 @@
 		.bg-white{
 			background-color: #fff;
 		}
+		.text-black{
+			color: #000;
+		}
 		hr.new2 {
 		  border-top: 3px dashed #848484;
 		  border-bottom: none;
@@ -63,37 +66,55 @@
 				<th colspan="2" class="text-gray" style="padding: 10px;">Date: {{Helper::date_only(Carbon::now())}} | {{Helper::time_only(Carbon::now())}}</th>
 			</tr>
 			<tr>
-				<th colspan="2"><p style="float: left;text-align: justify;">Dear {{Str::title($full_name)}}, <p>
-					<p style="float: left;text-align: justify;">Good day. You received this message because you have checked the 'Physical Submission' checkbox. Please download and print the attached file and paste it to your physical documents and send it to our office to continue your application.</p>
+				<th colspan="2"><p style="float: left;text-align: justify;">Hello Customer, <p><br>
+					<p style="float: left;text-align: justify;">Good day. We are pleased to inform you that your request for partial payment has been approved. Your new transaction is now for Payment.</p>
+				</th>
+			</tr>
+			<tr>
+				<th colspan="2" class="bold"><p style="float: left;text-align: justify;">
+					<p style="float: left;text-align: justify;">Payment Reference Number: {{$ref_num}} </p>
 				</th>
 			</tr>
 			<tr class="text-blue">
 				<th style="text-align: left;padding: 10px;">Bill Details</th>
 			</tr>
+
 			<tr class="text-blue">
 				<th style="text-align: left;padding: 10px;">Account Number:</th>
-				<th style="text-align: right;">{{$account_number}}</th>
+				<th style="text-align: right;">{{Str::title($account_number)}}</th>
 			</tr>
 			<tr class="text-blue">
-				<th style="text-align: left;padding: 10px;">Reference Number:</th>
-				<th style="text-align: right;">{{$ref_num}}</th>
+				<th style="text-align: left;padding: 10px;">Bill Month:</th>
+				<th style="text-align: right;">{{Helper::date_only($bill_month)}}</th>
 			</tr>
 			<tr class="text-blue">
-				<th style="text-align: left;padding: 10px;">Application Name:</th>
-				<th style="text-align: right;">{{Str::title($application_name)}}</th>
+				<th style="text-align: left;padding: 10px;">Due Date:</th>
+				<th style="text-align: right;">{{Helper::date_only($due_date)}}</th>
 			</tr>
-			<tr class="text-blue">
-				<th style="text-align: left;padding: 10px;">Department Name:</th>
-				<th style="text-align: right;">{{Str::title($department_name)}}</th>
+			<tr class="text-black bold">
+				<th style="text-align: left;padding: 10px;">Partial Amount:</th>
+				<th style="text-align: right;">PHP {{Helper::money_format($partial_amount)}}</th>
 			</tr>
+			<tr class="text-black bold">
+				<th style="text-align: left;padding: 10px;">Total Amount:</th>
+				<th style="text-align: right;">PHP {{Helper::money_format($total_amount)}}</th>
+			</tr>
+			<tr></tr>
 			<tr class="text-blue">
-				<th style="text-align: left;padding: 10px;">Date:</th>
-				<th style="text-align: right;">{{$created_at}}</th>
+				<th style="text-align: left;padding: 10px;">Requestor Details</th>
+			</tr>
+			<tr class="text-black bold">
+				<th style="text-align: left;padding: 10px;">Payor:</th>
+				<th style="text-align: right;">{{Str::title($full_name)}}</th>
+			</tr>
+			<tr class="text-black bold">
+				<th style="text-align: left;padding: 10px;">Contact Number:</th>
+				<th style="text-align: right;">{{$contact_number}}</th>
 			</tr>
 			
 			<tr>
 				<th colspan="2">
-					<p><a href="{{$link}}">Please click this link to download your reference number</a></p>
+					<p style="float: left;text-align: justify;">Please visit the <a href="{{env('APP_URL')}}">{{env("APP_URL")}}</a> and input the payment reference number to the E-Payment section to pay. This payment reference number will expire at 11:59 PM. You can pay via online(Debit/Credit card, e-wallet, etc.) or over-the-counter (7Eleven, Bayad Center, Cebuana Lhuillier, and to other affiliated partners)</p><br>
 					<p>Thank you for choosing Penelco!</p>
 				</th>
 			</tr>
