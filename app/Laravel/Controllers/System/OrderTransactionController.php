@@ -194,9 +194,6 @@ class OrderTransactionController extends Controller
 				/*$notification_data = new SendApprovedReference($insert);
 			    Event::dispatch('send-sms-approved', $notification_data);*/
 
-			    $notification_data_email = new SendPartialRequestEmail($insert);
-			    Event::dispatch('send-partial-request', $notification_data_email);
-
 		 		session()->flash('notification-status', "success");
 				session()->flash('notification-msg', "Partial Payment Request Successfully approved.");
 
