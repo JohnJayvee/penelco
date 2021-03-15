@@ -61,7 +61,7 @@
           <p class="mt-1 text-danger">{!!$errors->first('type')!!}</p>
           @endif
         </div>
-        <div class="form-group" id="office_container">
+        <!-- <div class="form-group" id="office_container">
           <label for="input_title">Bureau/Office</label>
           {!!Form::select("department_id", $department, old('department_id'), ['id' => "input_department_id", 'class' => "custom-select".($errors->first('department_id') ? ' is-invalid' : NULL)])!!}
           @if($errors->first('department_id'))
@@ -74,7 +74,7 @@
           @if($errors->first('application_id'))
           <p class="mt-1 text-danger">{!!$errors->first('application_id')!!}</p>
           @endif
-        </div>
+        </div> -->
         <div class="form-group">
           <label for="input_title">Username</label>
           <input type="text" class="form-control {{$errors->first('username') ? 'is-invalid' : NULL}}" id="input_username" name="username" placeholder="User Name" value="{{old('username')}}">
