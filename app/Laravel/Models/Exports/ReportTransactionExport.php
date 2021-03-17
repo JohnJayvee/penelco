@@ -26,16 +26,12 @@ class  ReportTransactionExport implements FromCollection,WithMapping,WithHeading
     public function headings(): array
         {
             return [
-                'Transaction Date',
-                'Submitted By',
-                'Application Code',
-                "Application Type",
-                "Bureau/Office",
-                "Processing Fee",
-                "Processing Fee Status",
-                "Application Fee",
-                "Application Fee Status",
-                "Processed By",
+                'Bill Month',
+                'Account Number',
+                'Transaction Code',
+                "Account Name",
+                "Due Date",
+                "Amount",
                 "Status",
                 
             ];
@@ -44,17 +40,13 @@ class  ReportTransactionExport implements FromCollection,WithMapping,WithHeading
     public function map($value): array
     {
         return [
-            Helper::date_format($value->created_at),
-            $value->customer ? $value->customer->full_name : $value->customer_name,
-            $value->code,
-            $value->type ? Strtoupper($value->type->name) : "N/A",
-            $value->department ? $value->department->name : "N/A",
-            Helper::money_format($value->processing_fee) ?: 0 ,
-            Str::upper($value->payment_status),
-            Helper::money_format($value->amount) ?: '---',
-            Str::upper($value->application_payment_status),
-            str::title($value->admin ? $value->admin->full_name : '---'),
-            $value->is_resent == 1 ? "RESENT" : $value->status,
+            Helper::date_only($value->bill_month),
+            $value->account_number,
+            Helper::get_transaction_number($value->id),
+            $value->account_name,
+            Helper::date_only($value->account_name),
+            Helper::money_format($value->amount ?: 0),
+            Str::title($value->payment_status),
             
         ];
     }

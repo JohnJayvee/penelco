@@ -7,31 +7,26 @@
 	<table width="100%" cellpadding="0" cellspacing="0" border="1">
 		<thead>
 			<tr align="center">
-				<td>Transaction Date</td>
-				<td>Submitted By</td>
-				<td>Company Name</td>
-				<td>Bureau/Office</td>
-				<td>Processing Fee</td>
-				<td>Processing Fee Status</td>
-				<td>Application Amount</td>
-				<td>Application Status</td>
-				<td>Processor</td>
+				<td>Bill Month</td>
+				<td>Account Number</td>
+				<td>Transaction Code</td>
+				<td>Account Name</td>
+				<td>Due Date</td>
+				<td>Amount</td>
 				<td>Status</td>
+
 			</tr>
 		</thead>
 		<tbody>
-			@forelse($transactions as $value)
+			@forelse($bills as $bill)
 				<tr align="center">
-					<td>{{Helper::date_format($value->created_at)}}</td>
-					<td>{{$value->customer_name}}</td>
-					<td>{{$value->company_name}}</td>
-					<td>{{$value->department->name}}</td>
-					<td>{{Helper::money_format($value->processing_fee)}}</td>
-					<td>{{$value->payment_status}}</td>
-					<td>{{Helper::money_format($value->amount) ?: '---'}}</td>
-					<td>{{$value->application_payment_status}}</td>
-					<td>{{ $value->admin ? $value->admin->full_name : '---' }}</td>
-					<td>{{ $value->is_resent == 1 && $value->status == "PENDING" ? "RESENT" : $value->status}}</td>
+					<td>{{ Helper::date_only($bill->bill_month)}}</td>
+		            <td>{{$bill->account_number}}</td>
+		            <td>{{Helper::get_transaction_number($bill->id)}}</td>
+		            <td>{{$bill->account_name}} </td>
+		            <td>{{ Helper::date_only($bill->due_date)}}</td>
+		            <td>{{Helper::money_format($bill->amount ?: 0)}}</td>
+		            <td>{{Str::title($bill->payment_status)}}</td>
 				</tr>
 			@empty
 			@endforelse

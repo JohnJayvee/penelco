@@ -42,6 +42,12 @@
           <a href="{{route('system.report.index')}}" class="btn btn-primary btn-sm p-2">Clear</a>
         </div>
       </div>
+      <div class="row mb-2">
+        <div class="col-md-4">
+          <a href="{{route('system.report.export')}}?keyword={{$keyword}}&start_date={{$start_date}}&end_date={{$end_date}}&payment_status={{$selected_payment_status}}" class="btn btn-primary btn-sm p-2">Export Excel</a>
+          <a href="{{route('system.report.pdf')}}?keyword={{$keyword}}&start_date={{$start_date}}&end_date={{$end_date}}&payment_status={{$selected_payment_status}}" class="btn btn-primary btn-sm p-2 ">Export PDF</a>
+        </div>
+      </div>
     </form>
   </div>
   <div class="col-md-12">
