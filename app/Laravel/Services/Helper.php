@@ -64,6 +64,11 @@ class Helper{
 		return $transaction ? $transaction->transaction_code : "---";
 	}
 
+	public static function get_partial_status($value = NULL){
+		$transaction = BillTransaction::where('bill_id' , $value)->where('bill_type' , "PARTIAL")->first();
+		return $transaction ? $transaction->payment_status : "---";
+	}
+
 	public static function digipep_transaction(array $param){
 		$trans_id = $param['trans_token'];
 		// .Str::upper(Str::random(6))

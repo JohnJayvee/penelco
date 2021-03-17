@@ -92,7 +92,7 @@
 				<th style="text-align: right;">{{Helper::date_only($due_date)}}</th>
 			</tr>
 			<tr class="text-black bold">
-				<th style="text-align: left;padding: 10px;">Partial Amount:</th>
+				<th style="text-align: left;padding: 10px;">Requested Partial Amount:</th>
 				<th style="text-align: right;">PHP {{Helper::money_format($partial_amount)}}</th>
 			</tr>
 			<tr class="text-black bold">

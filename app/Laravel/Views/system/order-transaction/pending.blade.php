@@ -17,9 +17,6 @@
 
   <div class="col-12 ">
     <form>
-      <div class="row pb-2">
-        
-      </div>
       <div class="row">
         <div class="col-md-3">
           <label>Date Range</label>

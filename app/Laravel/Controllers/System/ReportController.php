@@ -9,7 +9,7 @@ use App\Laravel\Requests\PageRequest;
 
 use App\Laravel\Models\Exports\ReportTransactionExport;
 use App\Laravel\Models\Exports\RCDExport;
-use App\Laravel\Models\{Transaction,Department,Application};
+use App\Laravel\Models\{Transaction,Department,Application,BillTransaction,BillDetails};
 
 /* App Classes
  */
@@ -33,14 +33,14 @@ class ReportController extends Controller
 
 		$this->data['types'] = ['' => "Choose Type",'PENDING' => "New Submission" , 'APPROVED' => "Approved Applications",'DECLINED' => "Declined Applications",'resent' => "Resent Applications"];
 
-		$this->data['status'] = ['' => "Choose Payment Status",'PAID' => "Paid" , 'UNPAID' => "Unpaid"];
+		$this->data['payment_status'] = ['' => "Choose Payment Status",'PAID' => "Paid" , 'UNPAID' => "Unpaid"];
 		$this->data['payment_methods'] = ['' => "Choose Payment Method",'ONLINE' => "Online" , 'OTC' => "Over the Counter"];
-
+		$this->data['status'] = ['' => "Choose Payment Status",'PENDING' => "Pending" , 'COMPLETED' => "Completed"];
 		
 		$this->per_page = env("DEFAULT_PER_PAGE",10);
 	}
 
-	public function  index(PageRequest $request){
+	/*public function  index(PageRequest $request){
 		$this->data['page_title'] = "Reports";
 		$auth = Auth::user();
 		
@@ -119,10 +119,44 @@ class ReportController extends Controller
 				->orderBy('created_at',"DESC")->paginate($this->per_page);
 
 			return view('system.report.index',$this->data);
-		
-		
-	}
+	}*/
 
+	public function index(PageRequest $request){
+
+		$auth = Auth::user();
+		$this->data['page_title'] = "Reports";
+
+		$first_record = BillTransaction::orderBy('created_at','ASC')->first();
+		$start_date = $request->get('start_date',Carbon::now()->startOfMonth());
+
+		if($first_record){
+			$start_date = $request->get('start_date',$first_record->created_at->format("Y-m-d"));
+		}
+		$this->data['start_date'] = Carbon::parse($start_date)->format("Y-m-d");
+		$this->data['end_date'] = Carbon::parse($request->get('end_date',Carbon::now()))->format("Y-m-d");
+
+		$this->data['keyword'] = Str::lower($request->get('keyword'));
+		$this->data['selected_payment_status'] = $request->get('payment_status');
+		//$this->data['selected_payment_method'] = $request->get('payment_method');
+		//$this->data['selected_department_type'] = $request->get('department_type');
+
+		$this->data['bills'] = BillDetails::where(function($query){
+				if(strlen($this->data['keyword']) > 0){
+					return $query->WhereRaw("LOWER(account_name)  LIKE  '%{$this->data['keyword']}%'")
+							->orWhereRaw("LOWER(account_number) LIKE  '%{$this->data['keyword']}%'");
+					}
+				})->where(function($query){
+					if(strlen($this->data['selected_payment_status']) > 0){
+						return $query->where('payment_status',$this->data['selected_payment_status']);
+					}
+				})
+				->where(DB::raw("DATE(created_at)"),'>=',$this->data['start_date'])
+				->where(DB::raw("DATE(created_at)"),'<=',$this->data['end_date'])
+				->orderBy('created_at',"DESC")->paginate($this->per_page);
+
+		return view('system.report.index',$this->data);
+
+	}
 	public function export(PageRequest $request){
 	 	$auth = Auth::user();
 	 	
