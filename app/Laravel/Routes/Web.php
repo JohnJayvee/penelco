@@ -6,7 +6,7 @@ Route::group(['as' => "web.",
 		 // 'domain' => env('SYSTEM_URL',''),
 		],function() {
 
-	
+
 	Route::group(['prefix'=> "/",'as' => 'main.' ],function(){
 		Route::get('/', [ 'as' => "index",'uses' => "MainController@index"]);
 	});
@@ -47,7 +47,7 @@ Route::group(['as' => "web.",
 	Route::get('upload/{code?}',['as' => "upload",'uses' => "CustomerTransactionController@upload"]);
 	Route::post('upload/{code?}',['uses' => "CustomerTransactionController@store_documents"]);
 	Route::get('request-eor/{code?}',['as' => "request-eor", 'uses' => "CustomerTransactionController@request_eor"]);
-	Route::get('request-partial/{code?}',['as' => "request_partial", 'uses' => "CustomerTransactionController@request_partial"]);
+	// Route::get('request-partial/{code?}',['as' => "request_partial", 'uses' => "CustomerTransactionController@request_partial"]);
 	Route::get('show-pdf/{id?}',['as' => "show-pdf", 'uses' => "CustomerTransactionController@show_pdf"]);
 	Route::get('physical-copy/{id?}',['as' => "physical-copy", 'uses' => "CustomerTransactionController@physical_pdf"]);
 	Route::get('certificate/{id?}',['as' => "certificate", 'uses' => "CustomerTransactionController@certificate"]);
@@ -62,7 +62,7 @@ Route::group(['as' => "web.",
   //           Route::get('/', [ 'as' => "index",'uses' => "AuthController@register"]);
   //           Route::post('/', [ 'uses' => "AuthController@store"]);
 	 //     });
-	
+
         // Route::post('login/{redirect_uri?}',['uses' => "AuthController@authenticate"]);
         // Route::get('forgot-password',['as' => "forgot_password",'uses' => "AuthController@forgot_pass"]);
         // Route::post('change-password',['as' => "change_password",'uses' => "AuthController@change_password"]);
@@ -72,7 +72,7 @@ Route::group(['as' => "web.",
   //           $this->post('/', [ 'uses' => "AuthController@store"]);
   //           $this->get('revert', [ 'as' => "revert",'uses' => "AuthController@revert"]);
   //       });
-	
+
 
 
 });
