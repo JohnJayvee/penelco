@@ -1,8 +1,8 @@
 <nav class="sidebar sidebar-offcanvas p-0" id="sidebar" style="background-color: #31353D;color: #ffff;">
   <h6 class="pl-3 pt-4">Menu</h6>
   <ul class="nav">
-    
-    
+
+
     @if(in_array($auth->type,['super_user','admin','processor','office_head','pcims_admin','bps_library_admin','bps_testing_admin','order_transaction_admin','cashier']))
       @if(in_array($auth->type,['super_user','admin','office_head','order_transaction_admin']))
         <li class="p-3 nav-item {{ in_array(Route::currentRouteName(), array('system.dashboard')) ? 'active' : ''}}">
@@ -77,12 +77,12 @@
           </ul>
         </div>
       </li>
-      <li class="p-3 nav-item {{ in_array(Route::currentRouteName(), array('system.order_transaction.partial','system.order_transaction.partial_show')) ? 'active' : ''}}">
+      {{-- <li class="p-3 nav-item {{ in_array(Route::currentRouteName(), array('system.order_transaction.partial','system.order_transaction.partial_show')) ? 'active' : ''}}">
         <a class="nav-link" href="{{route('system.order_transaction.partial')}}">
           <i class="fa fa-user-circle menu-icon"></i>
           <span class="menu-title">Partial Payment Request</span>
         </a>
-      </li>
+      </li> --}}
     @if(in_array($auth->type,['super_user','admin','office_head']))
       @if(in_array($auth->type,['super_user','admin']))
         {{-- <li class="p-3 nav-item {{ in_array(Route::currentRouteName(), array('system.account_title.partial','system.account_title.create','system.account_title.edit')) ? 'active' : ''}}">
@@ -103,7 +103,7 @@
             <span class="menu-title">Bureau/Office</span>
           </a>
         </li>
-       
+
         <li class="p-3 nav-item {{ in_array(Route::currentRouteName(), array('system.application_requirements.index','system.application_requirements.create','system.application_requirements.edit')) ? 'active' : ''}}">
           <a class="nav-link" href="{{route('system.application_requirements.index')}}">
             <i class="fa fa-check-circle menu-icon"></i>
