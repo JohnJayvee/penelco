@@ -16,10 +16,20 @@ class BillTransactionSeeder extends Seeder
         BillDetails::truncate();
         BillTransaction::truncate();
 
-        factory(BillTransaction::class, 100)->create();
+        factory(BillTransaction::class, 10)->states('appTransactionCode', 'paid', 'pending')->create();
+        factory(BillTransaction::class, 10)->states('appTransactionCode', 'paid')->create();
+        factory(BillTransaction::class, 10)->states('appTransactionCode', 'pending')->create();
+        factory(BillTransaction::class, 10)->state('btTransactionCode', 'paid', 'pending')->create();
+        factory(BillTransaction::class, 10)->state('btTransactionCode', 'paid')->create();
+        factory(BillTransaction::class, 10)->state('btTransactionCode', 'pending')->create();
+        factory(BillTransaction::class, 10)->state('pfTransactionCode', 'paid', 'pending')->create();
+        factory(BillTransaction::class, 10)->state('pfTransactionCode', 'paid')->create();
+        factory(BillTransaction::class, 10)->state('pfTransactionCode', 'pending')->create();
 
-        factory(BillTransaction::class, 100)->create([
-            'bill_id' => factory(BillDetails::class)->states('partial')->create()->id,
-        ]);
+        foreach (range(1, 10) as $i) {
+            factory(BillTransaction::class)->create([
+                'bill_id' => factory(BillDetails::class)->states('partial')->create()->id,
+            ]);
+        }
     }
 }
