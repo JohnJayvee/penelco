@@ -9,4 +9,8 @@ $factory->define(BillDetails::class, function (Faker $faker) {
     return [
 
     ];
+})->state(BillDetails::class, 'partial', function (Faker $faker) {
+    return [
+        'requested_partial' => 1,
+    ];
 });
