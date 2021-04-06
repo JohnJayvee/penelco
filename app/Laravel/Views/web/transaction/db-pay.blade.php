@@ -10,9 +10,9 @@
     <div class="container-fluid" style="padding: 0 6em;">
         @include('web._components.notifications')
         <div class="row">
-            <div class="col-md-7"> 
+            <div class="col-md-7">
                 <h5 class="text-blue fs-15 m-2">Order Details</h5>
-                <div class="card"> 
+                <div class="card">
                     <div class="card-body text-center">
                         <div class="row">
                             <div class="col-md-6">
@@ -61,9 +61,9 @@
                         </div>
                     </div>
                 </div>
-                @if($transaction->bill_type == "FULL")
+                {{-- @if($transaction->bill_type == "FULL")
                   <a data-url="{{ route('web.request_partial', [$code]) }}"  class="btn btn-partial btn-badge-primary fs-14 float-right mt-2">  Request Partial Payment </a>
-                @endif
+                @endif --}}
             </div>
             <div class="col-md-5">
                 <h5 class="text-blue fs-15 m-2">Request form Details</h5>
@@ -101,7 +101,7 @@
                                 <p class="float-right text-uppercase" style="text-align: right;">{{$transaction->email}}</p>
                             </div>
                         </div>
-                      
+
                         <img src="{{asset('web/img/penelco-logo.png')}}" alt="logo" class="img-fluid float-right" width="30%">
                     </div>
                 </div>
@@ -110,7 +110,7 @@
                  <a href="{{route('web.main.index')}}" class="btn btn-badge-danger float-right mr-2">Cancel</a>
             </div>
         </div>
-        
+
     </div>
 
 </section>
@@ -154,30 +154,30 @@
 <script src="{{asset('system/vendors/select2/select2.min.js')}}" type="text/javascript"></script>
 
 <script type="text/javascript">
-$(function(){
-    $(".btn-partial").on('click', function(){
-      var url = $(this).data('url');
-      var self = $(this)
-      Swal.fire({
-        title: "Please put Partial Amount. ",
-        text:"Are you sure you want to submit this request? You can't undo this action.",
-        icon: 'info',
-        input: 'text',
-        inputPlaceholder: "Put Amount",
-        showCancelButton: true,
-        confirmButtonText: 'Proceed',
-        cancelButtonColor: '#d33'
-      }).then((result) => {
-        if (result.value === "") {
-          alert("You need to write something")
-          return false
-        }
-        if (result.value) {
-          window.location.href = url + "?amount="+result.value;
-        }
+  /* $(function(){
+      $(".btn-partial").on('click', function(){
+        var url = $(this).data('url');
+        var self = $(this)
+        Swal.fire({
+          title: "Please put Partial Amount. ",
+          text:"Are you sure you want to submit this request? You can't undo this action.",
+          icon: 'info',
+          input: 'text',
+          inputPlaceholder: "Put Amount",
+          showCancelButton: true,
+          confirmButtonText: 'Proceed',
+          cancelButtonColor: '#d33'
+        }).then((result) => {
+          if (result.value === "") {
+            alert("You need to write something")
+            return false
+          }
+          if (result.value) {
+            window.location.href = url + "?amount="+result.value;
+          }
+        });
       });
-    });
-});
+  }); */
 </script>
 
 @endsection

@@ -25,7 +25,7 @@ class OrderTransactionController extends Controller
 {
     protected $data;
 	protected $per_page;
-	
+
 	public function __construct(){
 		parent::__construct();
 		array_merge($this->data, parent::get_data());
@@ -37,7 +37,7 @@ class OrderTransactionController extends Controller
 		$this->per_page = env("DEFAULT_PER_PAGE",2);
 	}
 
-	
+
 
 	public function pending (PageRequest $request){
 		$this->data['page_title'] = "For Payment Transaction List";
@@ -122,11 +122,11 @@ class OrderTransactionController extends Controller
 		    	session()->flash('notification-status', "success");
 		    	session()->flash('notification-msg', "Imported Successfully. All the rows from the Excel has been uploaded successfully.. Please refresh the page to reflect the uploaded data.");
 		    }
-		
+
 			return redirect()->route('system.order_transaction.pending');
 		} catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
 		     $failures = $e->failures();
-		     
+
 		     foreach ($failures as $failure) {
 		         $failure->row(); // row that went wrong
 		         $failure->attribute(); // either heading key (if using heading row concern) or column index
@@ -168,6 +168,8 @@ class OrderTransactionController extends Controller
 		return view('system.order-transaction.partial-show',$this->data);
 	}
 	public function process(PageRequest $request, $id = NULL){
+        abort_if($request->get('bill_details_data')->requested_partial == 1, 403, 'Order transaction is invalid.');
+
 		DB::beginTransaction();
 		try{
 		 	$bill = $request->get('bill_details_data');
@@ -190,7 +192,7 @@ class OrderTransactionController extends Controller
 		 		$new_transaction->transaction_code = 'BT-' . Helper::date_format(Carbon::now(), 'ym') . str_pad($new_transaction->id, 5, "0", STR_PAD_LEFT) . Str::upper(Str::random(3));
 		 		$new_transaction->save();
 
-		 		
+
 				/*$notification_data = new SendApprovedReference($insert);
 			    Event::dispatch('send-sms-approved', $notification_data);*/
 
@@ -219,7 +221,7 @@ class OrderTransactionController extends Controller
                 'contact_number' => $bill->contact_number,
                 'remarks' => $bill->remarks,
                 'type' => $type,
-        	];	
+        	];
 
         	$notification_data_email = new SendPartialRequestEmail($insert);
 			Event::dispatch('send-partial-request', $notification_data_email);
@@ -260,7 +262,7 @@ class OrderTransactionController extends Controller
 			return redirect()->back();
 		}
 
-		
+
 
 	}
 }

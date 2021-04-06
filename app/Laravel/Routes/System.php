@@ -43,8 +43,8 @@ Route::group(['as' => "auth."], function(){
 		Route::group(['as' => "order_transaction.",'prefix' => "order-transaction"], function(){
 			Route::get('pending',['as' => "pending",'uses' => "OrderTransactionController@pending"]);
 			Route::get('show/{id?}',['as' => "show",'uses' => "OrderTransactionController@show",'middleware' => "system.exist:bill-details"]);
-			Route::get('partial',['as' => "partial",'uses' => "OrderTransactionController@partial"]);
-			Route::get('partial_show/{id?}',['as' => "partial_show",'uses' => "OrderTransactionController@partial_show",'middleware' => "system.exist:bill-details"]);
+			// Route::get('partial',['as' => "partial",'uses' => "OrderTransactionController@partial"]);
+			// Route::get('partial_show/{id?}',['as' => "partial_show",'uses' => "OrderTransactionController@partial_show",'middleware' => "system.exist:bill-details"]);
 			Route::get('process/{id?}',['as' => "process",'uses' => "OrderTransactionController@process",'middleware' => "system.exist:bill-details"]);
 			Route::get('upload',['as' => "upload",'uses' => "OrderTransactionController@upload"]);
 			Route::post('upload',['uses' => "OrderTransactionController@upload_order"]);
@@ -87,7 +87,7 @@ Route::group(['as' => "auth."], function(){
 			Route::any('delete/{id?}',['as' => "destroy",'uses' => "ApplicationRequirementController@destroy",'middleware' => "system.exist:requirements"]);
 			Route::get('upload',['as' => "upload",'uses' => "ApplicationRequirementController@upload"]);
 			Route::post('upload',['uses' => "ApplicationRequirementController@upload_department"]);
-			
+
 		});
 
 		Route::group(['as' => "regional_office.",'prefix' => "regional-office"], function(){
@@ -100,7 +100,7 @@ Route::group(['as' => "auth."], function(){
 			// Route::any('get-municipalities',['as' => "get_municipalities", 'uses' => "ZoneLocationController@get_municipalities"]);
 			// Route::any('get-province',['as' => "get_provinces", 'uses' => "ZoneLocationController@get_provinces"]);
 			// Route::any('get-region',['as' => "get_region", 'uses' => "ZoneLocationController@get_region"]);
-			
+
 		});
 
 		Route::group(['as' => "account_title.",'prefix' => "account-title"], function(){
@@ -135,7 +135,7 @@ Route::group(['as' => "auth."], function(){
 		});
 	});
 
-	
+
 
 
 });
