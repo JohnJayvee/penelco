@@ -17,5 +17,9 @@ class BillTransactionSeeder extends Seeder
         BillTransaction::truncate();
 
         factory(BillTransaction::class, 100)->create();
+
+        factory(BillTransaction::class, 100)->create([
+            'bill_id' => factory(BillDetails::class)->states('partial')->create()->id,
+        ]);
     }
 }
